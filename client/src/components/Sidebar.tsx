@@ -2,19 +2,17 @@ import type { RefObject } from "react";
 import { NavLink } from "react-router-dom";
 
 import { unauthenticatedLinks, authenticatedLinks } from "../constants/index";
+import { useAuthStore } from "../store/store";
 
 type SidebarProps = {
   isSidebarOpen: boolean;
   sidebarRef: RefObject<HTMLDivElement | null>;
-  isAuthenticated: boolean;
 };
 
-const Sidebar = ({
-  isSidebarOpen,
-  sidebarRef,
-  isAuthenticated,
-}: SidebarProps) => {
-  const links = isAuthenticated ? authenticatedLinks : unauthenticatedLinks;
+const Sidebar = ({ isSidebarOpen, sidebarRef }: SidebarProps) => {
+  const user = useAuthStore((state) => state.user);
+
+  const links = user ? authenticatedLinks : unauthenticatedLinks;
 
   return (
     <div

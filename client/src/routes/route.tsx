@@ -5,6 +5,7 @@ import Signup from "../pages/Signup";
 import About from "../pages/About";
 import Mynotes from "../pages/Mynotes";
 import CreateNote from "../pages/CreateNote";
+import PrivateRoute from "../components/PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -29,11 +30,19 @@ const router = createBrowserRouter([
       },
       {
         path: "mynotes",
-        element: <Mynotes />,
+        element: (
+          <PrivateRoute>
+            <Mynotes />
+          </PrivateRoute>
+        ),
       },
       {
         path: "createnote",
-        element: <CreateNote />,
+        element: (
+          <PrivateRoute>
+            <CreateNote />
+          </PrivateRoute>
+        ),
       },
     ],
   },

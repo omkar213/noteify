@@ -9,4 +9,4 @@ const PasswordInput = (props: PasswordInputProps) => {
   );
 };
 
-export default PasswordInput
+export default PasswordInput;

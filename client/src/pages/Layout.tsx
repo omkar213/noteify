@@ -28,11 +28,7 @@ export default function Layout() {
 
   return (
     <div className="w-full h-screen flex">
-      <Sidebar
-        isSidebarOpen={isSidebarOpen}
-        sidebarRef={sidebarRef}
-        isAuthenticated={false}
-      />
+      <Sidebar isSidebarOpen={isSidebarOpen} sidebarRef={sidebarRef} />
       <div className="w-full md:left-0 lg:w-[calc(100%-224px)] h-full fixed lg:left-56">
         <Navbar setIsSidebarOpen={setIsSidebarOpen} />
         <div className="h-[calc(100vh-64px)] mt-16 bg-[#ececec] text-[#00000089] px-6 py-7">
