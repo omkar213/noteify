@@ -27,7 +27,14 @@ export const signup = async (req, res) => {
       expiresIn: "7d",
     });
 
-    res.status(201).json({ user, jwtToken });
+    res.status(201).json({
+      user: {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
+      jwtToken,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Failed to create a user" });
@@ -51,7 +58,14 @@ export const login = async (req, res) => {
       expiresIn: "7d",
     });
 
-    res.status(200).json({ user, token });
+    res.status(200).json({
+      user: {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      },
+      token,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Login failed", error });
