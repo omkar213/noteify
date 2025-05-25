@@ -9,6 +9,22 @@ export interface FormData {
   password: FormField;
 }
 
+export interface NoteData {
+  title: FormField;
+  details: FormField;
+  category: FormField;
+}
+
+export interface Note {
+  _id: string;
+  title: string;
+  details: string;
+  category: string;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface LoginData {
   email: FormField;
   password: FormField;

@@ -7,9 +7,14 @@ import { useAuthStore } from "../store/store";
 type SidebarProps = {
   isSidebarOpen: boolean;
   sidebarRef: RefObject<HTMLDivElement | null>;
+  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Sidebar = ({ isSidebarOpen, sidebarRef }: SidebarProps) => {
+const Sidebar = ({
+  isSidebarOpen,
+  sidebarRef,
+  setIsSidebarOpen,
+}: SidebarProps) => {
   const user = useAuthStore((state) => state.user);
 
   const links = user ? authenticatedLinks : unauthenticatedLinks;
@@ -34,6 +39,7 @@ const Sidebar = ({ isSidebarOpen, sidebarRef }: SidebarProps) => {
                 isActive ? "bg-blue-100 font-semibold text-blue-600" : ""
               }`
             }
+            onClick={() => setIsSidebarOpen(false)}
           >
             <Icon size={24} color="blue" />
             <span className="text-xl">{label}</span>

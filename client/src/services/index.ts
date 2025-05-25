@@ -1,11 +1,19 @@
 import axios from "axios";
-import type { FormData, LoginData } from "../types/index";
+import type { FormData, LoginData, NoteData } from "../types/index";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_BACKEND_URL,
   headers: {
     "Content-Type": "application/json",
   },
+});
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 export const signup = async (data: FormData) => {
@@ -31,6 +39,29 @@ export const login = async (data: LoginData) => {
     };
     const response = await api.post("/login", payload);
     return response?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createNote = async (data: NoteData) => {
+  try {
+    const payload = {
+      title: data?.title?.value,
+      details: data?.details?.value,
+      category: data?.category?.value,
+    };
+    const response = await api.post("/createNote", payload);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getNotes = async () => {
+  try {
+    const response = await api.get("/getNotes");
+    return response.data.notes;
   } catch (error) {
     console.log(error);
   }
