@@ -55,7 +55,6 @@ const CreateNote = () => {
     }
 
     setNote(updatedNote);
-    console.log(isValid);
     return isValid;
   };
 

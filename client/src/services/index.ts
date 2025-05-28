@@ -66,3 +66,12 @@ export const getNotes = async () => {
     console.log(error);
   }
 };
+
+export const deleteNoteByID = async (id: string) => {
+  try {
+    const response = await api.delete(`/delete/${id}`);
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

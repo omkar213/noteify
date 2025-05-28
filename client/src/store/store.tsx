@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { AuthState } from "../types";
+import type { AuthState, SnackbarState } from "../types";
 import { persist } from "zustand/middleware";
 
 export const useAuthStore = create<AuthState>()(
@@ -7,7 +7,10 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       setUser: (user) => set({ user }),
-      logout: () => set({ user: null }),
+      logout: () => {
+        localStorage.removeItem("token");
+        set({ user: null });
+      },
     }),
     {
       name: "auth-storage",
@@ -15,3 +18,12 @@ export const useAuthStore = create<AuthState>()(
     }
   )
 );
+
+export const useSnackbarStore = create<SnackbarState>((set) => ({
+  message: "",
+  open: false,
+  severity: "info",
+  showSnackbar: (message, severity = "info") =>
+    set({ message, severity, open: true }),
+  closeSnackbar: () => set({ open: false }),
+}));

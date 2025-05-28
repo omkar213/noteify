@@ -5,7 +5,7 @@ import PasswordInput from "../components/ui/PasswordInput";
 
 import type { LoginData } from "../types/index";
 import { login } from "../services";
-import { useAuthStore } from "../store/store";
+import { useAuthStore, useSnackbarStore } from "../store/store";
 
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +17,8 @@ const defaultFormState: LoginData = {
 const Login = () => {
   const [formData, setFormData] = useState(defaultFormState);
   const navigate = useNavigate();
+
+  const showSnackbar = useSnackbarStore((state) => state.showSnackbar);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -68,6 +70,7 @@ const Login = () => {
         if (response?.token && response?.user) {
           localStorage.setItem("token", response.token);
           useAuthStore.getState().setUser(response.user);
+          showSnackbar(response?.message || "Logged In", "success");
           navigate("/mynotes");
         }
       } catch (error) {

@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import { useEffect, useRef, useState } from "react";
+import AlertSnackbar from "../components/AlertSnackbar";
 
 export default function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -39,6 +40,7 @@ export default function Layout() {
           <Outlet />
         </div>
       </div>
+      <AlertSnackbar />
     </div>
   );
 }

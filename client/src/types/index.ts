@@ -25,6 +25,14 @@ export interface Note {
   updatedAt: string;
 }
 
+export type SnackbarState = {
+  message: string;
+  open: boolean;
+  severity: "success" | "error" | "info" | "warning";
+  showSnackbar: (message: string, severity?: SnackbarState["severity"]) => void;
+  closeSnackbar: () => void;
+};
+
 export interface LoginData {
   email: FormField;
   password: FormField;
@@ -40,4 +48,5 @@ export interface User {
 export interface AuthState {
   user: User | null;
   setUser: (user: User) => void;
+  logout: () => void;
 }

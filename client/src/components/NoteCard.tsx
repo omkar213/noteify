@@ -10,7 +10,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import type { Note } from "../types";
 
-const NoteCard = ({ note }: { note: Note }) => {
+const NoteCard = ({ note, onDelete }: { note: Note; onDelete: () => void }) => {
   return (
     <Card>
       <CardHeader
@@ -23,7 +23,7 @@ const NoteCard = ({ note }: { note: Note }) => {
           </div>
         }
         action={
-          <IconButton>
+          <IconButton onClick={onDelete}>
             <DeleteIcon />
           </IconButton>
         }
