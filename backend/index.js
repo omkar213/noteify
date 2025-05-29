@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 //routes
 import authRoutes from "./routes/authRouter.js";
+import notesRoutes from "./routes/notesRoute.js";
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api", authRoutes);
+app.use("/api", notesRoutes);
 
 mongoose
   .connect(process.env.MONGO_URL)

@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import { useEffect, useRef, useState } from "react";
+import AlertSnackbar from "../components/AlertSnackbar";
 
 export default function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -31,7 +32,7 @@ export default function Layout() {
       <Sidebar
         isSidebarOpen={isSidebarOpen}
         sidebarRef={sidebarRef}
-        isAuthenticated={false}
+        setIsSidebarOpen={setIsSidebarOpen}
       />
       <div className="w-full md:left-0 lg:w-[calc(100%-224px)] h-full fixed lg:left-56">
         <Navbar setIsSidebarOpen={setIsSidebarOpen} />
@@ -39,6 +40,7 @@ export default function Layout() {
           <Outlet />
         </div>
       </div>
+      <AlertSnackbar />
     </div>
   );
 }

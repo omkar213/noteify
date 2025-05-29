@@ -2,19 +2,32 @@ import type { RefObject } from "react";
 import { NavLink } from "react-router-dom";
 
 import { unauthenticatedLinks, authenticatedLinks } from "../constants/index";
+import { useAuthStore, useSnackbarStore } from "../store/store";
+
+import { LogOut } from "lucide-react";
 
 type SidebarProps = {
   isSidebarOpen: boolean;
   sidebarRef: RefObject<HTMLDivElement | null>;
-  isAuthenticated: boolean;
+  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const Sidebar = ({
   isSidebarOpen,
   sidebarRef,
-  isAuthenticated,
+  setIsSidebarOpen,
 }: SidebarProps) => {
-  const links = isAuthenticated ? authenticatedLinks : unauthenticatedLinks;
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
+  const showSnackbar = useSnackbarStore((state) => state.showSnackbar);
+
+  const links = user ? authenticatedLinks : unauthenticatedLinks;
+
+  const handleLogout = () => {
+    logout();
+    setIsSidebarOpen(false);
+    showSnackbar("Logged out successfully", "success");
+  };
 
   return (
     <div
@@ -36,11 +49,20 @@ const Sidebar = ({
                 isActive ? "bg-blue-100 font-semibold text-blue-600" : ""
               }`
             }
+            onClick={() => setIsSidebarOpen(false)}
           >
             <Icon size={24} color="blue" />
             <span className="text-xl">{label}</span>
           </NavLink>
         ))}
+
+        <button
+          onClick={handleLogout}
+          className="px-4 py-3 flex items-center gap-6 text-left hover:bg-blue-100 text-xl"
+        >
+          <LogOut color="blue" />
+          <span>Log out</span>
+        </button>
       </div>
     </div>
   );

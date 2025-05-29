@@ -7,7 +7,7 @@ const EmailInput = (props: EmailInputProps) => {
   return (
     <TextField
       label="Email*"
-      type="email"
+      type="text"
       variant="outlined"
       {...props}
       fullWidth

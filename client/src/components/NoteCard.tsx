@@ -8,27 +8,28 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import type { Note } from "../types";
 
-const NoteCard = () => {
+const NoteCard = ({ note, onDelete }: { note: Note; onDelete: () => void }) => {
   return (
     <Card>
       <CardHeader
         className="!items-start"
-        avatar={<Avatar>M</Avatar>}
+        avatar={<Avatar>{note.title.charAt(0).toUpperCase()}</Avatar>}
         title={
           <div className="flex flex-col items-start gap-2">
-            <Typography className="">Note 1</Typography>
-            <Chip label="money" />
+            <Typography>{note.title}</Typography>
+            <Chip label={note.category} />
           </div>
         }
         action={
-          <IconButton>
+          <IconButton onClick={onDelete}>
             <DeleteIcon />
           </IconButton>
         }
-      ></CardHeader>
+      />
       <CardContent>
-        <Typography>My First Note</Typography>
+        <Typography>{note.details}</Typography>
       </CardContent>
     </Card>
   );

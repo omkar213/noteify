@@ -5,6 +5,11 @@ import Signup from "../pages/Signup";
 import About from "../pages/About";
 import Mynotes from "../pages/Mynotes";
 import CreateNote from "../pages/CreateNote";
+import PrivateRoute from "../components/PrivateRoutes";
+
+import { useAuthStore } from "../store/store";
+
+const isAuthenticated = useAuthStore.getState().user !== null;
 
 const router = createBrowserRouter([
   {
@@ -13,7 +18,9 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/login" replace />,
+        element: (
+          <Navigate to={isAuthenticated ? "/mynotes" : "/login"} replace />
+        ),
       },
       {
         path: "login",
@@ -29,11 +36,19 @@ const router = createBrowserRouter([
       },
       {
         path: "mynotes",
-        element: <Mynotes />,
+        element: (
+          <PrivateRoute>
+            <Mynotes />
+          </PrivateRoute>
+        ),
       },
       {
         path: "createnote",
-        element: <CreateNote />,
+        element: (
+          <PrivateRoute>
+            <CreateNote />
+          </PrivateRoute>
+        ),
       },
     ],
   },
