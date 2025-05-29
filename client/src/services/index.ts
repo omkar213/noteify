@@ -26,8 +26,9 @@ export const signup = async (data: FormData) => {
     };
     const response = await api.post("/signup", payload);
     return response.data;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    const errorMessage = error.response?.data?.message;
+    throw new Error(errorMessage);
   }
 };
 
@@ -39,8 +40,9 @@ export const login = async (data: LoginData) => {
     };
     const response = await api.post("/login", payload);
     return response?.data;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    const errorMessage = error.response?.data?.message;
+    throw new Error(errorMessage);
   }
 };
 
@@ -53,8 +55,9 @@ export const createNote = async (data: NoteData) => {
     };
     const response = await api.post("/createNote", payload);
     return response?.data;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    const errorMessage = error.response?.data?.message;
+    throw new Error(errorMessage);
   }
 };
 
@@ -62,8 +65,9 @@ export const getNotes = async () => {
   try {
     const response = await api.get("/getNotes");
     return response.data.notes;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    const errorMessage = error.response?.data?.message;
+    throw new Error(errorMessage);
   }
 };
 
@@ -71,7 +75,8 @@ export const deleteNoteByID = async (id: string) => {
   try {
     const response = await api.delete(`/delete/${id}`);
     return response?.data;
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    const errorMessage = error.response?.data?.message;
+    throw new Error(errorMessage);
   }
 };

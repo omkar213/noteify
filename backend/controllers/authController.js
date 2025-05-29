@@ -36,7 +36,6 @@ export const signup = async (req, res) => {
       jwtToken,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Failed to create a user" });
   }
 };
@@ -67,7 +66,6 @@ export const login = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Login failed", error });
   }
 };

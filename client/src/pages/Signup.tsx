@@ -5,7 +5,7 @@ import PasswordInput from "../components/ui/PasswordInput";
 import { useState } from "react";
 import { signup } from "../services/index";
 
-import { useAuthStore } from "../store/store";
+import { useAuthStore, useSnackbarStore } from "../store/store";
 
 import type { FormData } from "../types/index";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +20,8 @@ const defaultFormState: FormData = {
 const Signup = () => {
   const [formData, setFormData] = useState(defaultFormState);
   const navigate = useNavigate();
+
+  const showSnackbar = useSnackbarStore((state) => state.showSnackbar);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -79,11 +81,13 @@ const Signup = () => {
         if (res?.jwtToken && res?.user) {
           localStorage.setItem("token", res.jwtToken);
           useAuthStore.getState().setUser(res.user);
+          showSnackbar("Signed Up Successful", "success");
           navigate("/mynotes");
         }
         setFormData(defaultFormState);
-      } catch (err) {
-        console.error("Signup failed:", err);
+      } catch (err: any) {
+        const errorMessage = err?.message || "Failed to Sign Up";
+        showSnackbar(errorMessage, "error");
       }
     }
   };

@@ -73,8 +73,9 @@ const Login = () => {
           showSnackbar(response?.message || "Logged In", "success");
           navigate("/mynotes");
         }
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        const errorMessage = error?.message || "Failed to Sign Up";
+        showSnackbar(errorMessage, "error");
       }
     }
   };

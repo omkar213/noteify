@@ -24,7 +24,6 @@ const Mynotes = () => {
       setNotes((prev) => prev.filter((note) => note._id !== id));
     } catch (error) {
       showSnackbar("Failed to delete note", "error");
-      console.log(error);
     }
   };
 

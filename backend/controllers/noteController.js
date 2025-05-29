@@ -20,7 +20,6 @@ export const createNote = async (req, res) => {
 
     res.status(200).json({ message: "Note created Succefully", note: newNote });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: "Failed to create note", error });
   }
 };
@@ -61,7 +60,6 @@ export const deleteNote = async (req, res) => {
       .status(200)
       .json({ message: "Note delete succefully", deletedNote });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ message: "Failed to delete the Note" });
   }
 };

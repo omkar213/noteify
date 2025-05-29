@@ -12,6 +12,7 @@ import { useState } from "react";
 import type { NoteData } from "../types";
 import { createNote } from "../services";
 import { useNavigate } from "react-router-dom";
+import { useSnackbarStore } from "../store/store";
 
 const defaultValues: NoteData = {
   title: { value: "", error: null },
@@ -21,6 +22,8 @@ const defaultValues: NoteData = {
 
 const CreateNote = () => {
   const [note, setNote] = useState(defaultValues);
+
+  const showSnackbar = useSnackbarStore((state) => state.showSnackbar);
 
   const navigate = useNavigate();
 
@@ -62,16 +65,17 @@ const CreateNote = () => {
     e.preventDefault();
 
     const hasErrors = handleValidation();
-    console.log(hasErrors);
     if (!hasErrors) {
       try {
         const res = await createNote(note);
         if (res?.note) {
           setNote(defaultValues);
+          showSnackbar("Note Created Succesfully", "success");
           navigate("/mynotes");
         }
       } catch (error) {
         console.error("Error creating note:", error);
+        showSnackbar("Note Creation Failed", "error");
       }
     }
   };
