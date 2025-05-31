@@ -7,15 +7,18 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
-    server: {
-      proxy: {
-        "/api": {
-          target: env.VITE_BASE_URL,
-        },
-      },
+    build: {
+      outDir: "dist",
     },
     resolve: {
       alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
+    },
+    server: {
+      proxy: {
+        "/api": {
+          target: env.VITE_BACKEND_URL,
+        },
+      },
     },
   };
 });
